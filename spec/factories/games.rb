@@ -3,16 +3,16 @@
 # см. другие примеры на
 # http://www.rubydoc.info/gems/factory_girl/file/GETTING_STARTED.md
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :game do
     # связь с юзером
     association :user
 
     #  игра только начата
-    finished_at nil
-    current_level 0
-    is_failed false
-    prize 0
+    finished_at { nil }
+    current_level { 0 }
+    is_failed { false }
+    prize { 0 }
     # ! эта фабрика создает объект Game без дочерних игровых вопросов,
     # в такую игру играть нельзя, расширим фабрику дочерней фабрикой!
 
@@ -21,8 +21,8 @@ FactoryGirl.define do
       # коллбэк после :build игры - создаем 15 вопросов
       after(:build) { |game|
         15.times do |i|
-          # factory_girl create - дергает соотв. фабрику
-          # создаем явно вопрос с нужным уровнем
+          # factory_girl create - дергает соотв. фабрику. Создаем явно вопрос с нужным уровнем, передавая его.
+          # В фабрике question строка создания уровня будет проигнорирована и прописан переданный ей уровеь в переменной i
           q = create(:question, level: i)
           # создаем связанные game_questions с нужной игрой и вопросом
           create(:game_question, game: game, question: q)
