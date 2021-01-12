@@ -143,4 +143,15 @@ RSpec.describe Game, type: :model do
       expect(game_w_questions.status).to be(:money)
     end
   end
+
+  #Домашка 60-6 группа тестов на проверку статуса игры
+  context '.status' do
+    it '.current_game_question' do
+      expect(game_w_questions.current_game_question.level).to eq(0)
+    end
+
+    it '.previous_level' do
+      expect(game_w_questions.previous_level).to eq(-1)
+    end
+  end
 end
