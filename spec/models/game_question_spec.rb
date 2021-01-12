@@ -29,4 +29,22 @@ RSpec.describe GameQuestion, type: :model do
       expect(game_question.answer_correct?('b')).to be_truthy
     end
   end
+
+  context 'delegate methods present' do
+    it 'present methods: text and level' do
+      expect(game_question.text).to eq(game_question.question.text)
+      expect(game_question.level).to eq(game_question.question.level)
+    end
+  end
+
+  #Домашка 60-5 группа тестов на проверку метода correct_answer_key
+  context '.correct_answer_key variants' do
+    it 'correct .correct_answer_key' do
+      expect(game_question.correct_answer_key).to eq('b')
+    end
+
+    it 'incorrect .correct_answer_key' do
+      expect(game_question.correct_answer_key).not_to eq(%w(a c d))
+    end
+  end
 end

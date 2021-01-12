@@ -69,7 +69,78 @@ RSpec.describe Game, type: :model do
 
       # Игра продолжается
       expect(game_w_questions.status).to eq(:in_progress)
+
       expect(game_w_questions.finished?).to be_falsey
+    end
+
+    #Домашка 60-3
+    it 'take_money! operates correctly' do
+      q = game_w_questions.current_game_question
+
+      game_w_questions.answer_current_question!(q.correct_answer_key)
+
+      game_w_questions.take_money!
+
+      prize = game_w_questions.prize
+
+      expect(prize).to be > 0
+
+      expect(game_w_questions.status).to eq :money
+
+      expect(game_w_questions.finished?).to be_truthy
+
+      expect(user.balance).to eq prize
+    end
+  end
+
+  #Домашка 60-4 группа тестов на проверку статуса игры
+  context '.status' do
+    it '#status should return :fail' do
+      q = game_w_questions.current_game_question
+
+      correct_answer = q.correct_answer_key
+
+      not_correct_answer = %w[a b c d].detect { |element| element != correct_answer }
+
+      game_w_questions.answer_current_question!(not_correct_answer)
+
+      expect(game_w_questions.status).to be(:fail)
+    end
+
+    it '#status should return :timeout' do
+      game_w_questions.created_at -= 36.minutes
+
+      q = game_w_questions.current_game_question
+
+      correct_answer = q.correct_answer_key
+
+      game_w_questions.answer_current_question!(correct_answer)
+
+      expect(game_w_questions.status).to be(:timeout)
+    end
+
+    it '#status should return :won' do
+      q = game_w_questions.current_game_question
+
+      correct_answer = q.correct_answer_key
+
+      game_w_questions.current_level = 14
+
+      game_w_questions.answer_current_question!(correct_answer)
+
+      expect(game_w_questions.status).to be(:won)
+    end
+
+    it '#status should return :money' do
+      q = game_w_questions.current_game_question
+
+      correct_answer = q.correct_answer_key
+
+      game_w_questions.answer_current_question!(correct_answer)
+
+      game_w_questions.take_money!
+
+      expect(game_w_questions.status).to be(:money)
     end
   end
 end

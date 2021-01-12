@@ -22,6 +22,7 @@ group :development, :test do
   # gem 'factory_girl_rails'
   gem 'factory_bot_rails'
   gem 'shoulda-matchers'
+  gem 'ffaker'
 
   # Гем, который использует rspec, чтобы смотреть наш сайт
   gem 'capybara'
