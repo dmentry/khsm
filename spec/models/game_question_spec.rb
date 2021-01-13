@@ -37,14 +37,10 @@ RSpec.describe GameQuestion, type: :model do
     end
   end
 
-  #Домашка 60-5 группа тестов на проверку метода correct_answer_key
-  context '.correct_answer_key variants' do
+  #Домашка 60-5 тест на проверку метода correct_answer_key
+  describe '.correct_answer_key variants' do
     it 'correct .correct_answer_key' do
       expect(game_question.correct_answer_key).to eq('b')
-    end
-
-    it 'incorrect .correct_answer_key' do
-      expect(game_question.correct_answer_key).not_to eq(%w(a c d))
     end
   end
 end
