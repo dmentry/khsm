@@ -154,4 +154,48 @@ RSpec.describe Game, type: :model do
       expect(game_w_questions.previous_level).to eq(-1)
     end
   end
+
+  #Домашка 60-7 группа тестов на .answer_current_question!
+  context '.answer_current_question!' do
+    it 'should return true' do
+      q = game_w_questions.current_game_question
+
+      correct_answer = q.correct_answer_key
+
+      expect(game_w_questions.answer_current_question!(correct_answer)).to eq(true)
+    end
+
+    it 'should return false' do
+      q = game_w_questions.current_game_question
+
+      correct_answer = q.correct_answer_key
+
+      not_correct_answer = %w[a b c d].detect { |element| element != correct_answer }
+
+      expect(game_w_questions.answer_current_question!(not_correct_answer)).to eq(false)
+    end
+
+    it 'it is the last answer' do
+      max_current_level = Question::QUESTION_LEVELS.max
+      game_w_questions.current_level = max_current_level
+
+      q = game_w_questions.current_game_question
+
+      correct_answer = q.correct_answer_key
+
+      expect(game_w_questions.answer_current_question!(correct_answer)).to eq(true)
+      expect(game_w_questions.current_level).to eq(max_current_level += 1)
+      expect(game_w_questions.user.balance).to be > 0
+    end
+
+    it 'answer after time out' do
+      game_w_questions.created_at = 50.minutes.ago
+
+      q = game_w_questions.current_game_question
+
+      correct_answer = q.correct_answer_key
+
+      expect(game_w_questions.answer_current_question!(correct_answer)).to eq(false)
+    end
+  end
 end
