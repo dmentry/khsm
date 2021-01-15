@@ -37,7 +37,7 @@ class GamesController < ApplicationController
 
   # params[:letter] - единственный параметр
   def answer
-    # выясняем, правильно ли оветили
+    # выясняем, правильно ли ответили
     @answer_is_correct = @game.answer_current_question!(params[:letter])
     @game_question = @game.current_game_question
 
