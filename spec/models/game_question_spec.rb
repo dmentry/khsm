@@ -15,7 +15,7 @@ RSpec.describe GameQuestion, type: :model do
   # Группа тестов на игровое состояние объекта вопроса
   context 'game status' do
     # Тест на правильную генерацию хэша с вариантами
-    it 'correct .variants' do
+    it 'correct #variants' do
       expect(game_question.variants).to eq(
         'a' => game_question.question.answer2,
         'b' => game_question.question.answer1,
@@ -24,22 +24,22 @@ RSpec.describe GameQuestion, type: :model do
       )
     end
 
-    it 'correct .answer_correct?' do
+    it '#answer_correct? operates correctly' do
       # Именно под буквой b в тесте мы спрятали указатель на верный ответ
       expect(game_question.answer_correct?('b')).to be_truthy
     end
   end
 
   context 'delegate methods present' do
-    it 'present methods: text and level' do
+    it 'present methods: text and level correctly' do
       expect(game_question.text).to eq(game_question.question.text)
       expect(game_question.level).to eq(game_question.question.level)
     end
   end
 
   #Домашка 60-5 тест на проверку метода correct_answer_key
-  describe '.correct_answer_key variants' do
-    it 'correct .correct_answer_key' do
+  describe '#correct_answer_key returns right letter' do
+    it 'correct #correct_answer_key' do
       expect(game_question.correct_answer_key).to eq('b')
     end
   end
