@@ -74,7 +74,7 @@ RSpec.describe Game, type: :model do
     end
 
     #Домашка 60-3
-    it 'take_money! operates correctly' do
+    it '#take_money! operates correctly' do
       q = game_w_questions.current_game_question
 
       game_w_questions.answer_current_question!(q.correct_answer_key)
@@ -94,7 +94,7 @@ RSpec.describe Game, type: :model do
   end
 
   #Домашка 60-4 группа тестов на проверку статуса игры
-  context '.status' do
+  context '#status' do
     it '#status should return :fail' do
       q = game_w_questions.current_game_question
 
@@ -145,18 +145,18 @@ RSpec.describe Game, type: :model do
   end
 
   #Домашка 60-6 группа тестов на проверку статуса игры
-  context '.status' do
-    it '.current_game_question' do
+  context '#status' do
+    it '#current_game_question returns correct question text' do
       expect(game_w_questions.current_game_question).to eq(game_w_questions.game_questions.first)
     end
 
-    it '.previous_level' do
+    it '#previous_level returns correct level' do
       expect(game_w_questions.previous_level).to eq(-1)
     end
   end
 
-  #Домашка 60-7 группа тестов на .answer_current_question!
-  context '.answer_current_question!' do
+  #Домашка 60-7 группа тестов на #answer_current_question!
+  context '#answer_current_question!' do
     it 'should return true' do
       q = game_w_questions.current_game_question
 
@@ -175,7 +175,7 @@ RSpec.describe Game, type: :model do
       expect(game_w_questions.answer_current_question!(not_correct_answer)).to eq(false)
     end
 
-    it 'it is the last answer' do
+    it 'behaviour when last answer' do
       max_current_level = Question::QUESTION_LEVELS.max
       game_w_questions.current_level = max_current_level
 
@@ -188,7 +188,7 @@ RSpec.describe Game, type: :model do
       expect(game_w_questions.user.balance).to be > 0
     end
 
-    it 'answer after time out' do
+    it 'when answer is after time out' do
       game_w_questions.created_at = 50.minutes.ago
 
       q = game_w_questions.current_game_question
