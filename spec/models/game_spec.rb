@@ -163,6 +163,10 @@ RSpec.describe Game, type: :model do
       correct_answer = q.correct_answer_key
 
       expect(game_w_questions.answer_current_question!(correct_answer)).to eq(true)
+
+      expect(game_w_questions.finished_at).to be_nil
+
+      expect(game_w_questions.status).to be(:in_progress)
     end
 
     it 'should return false' do
@@ -173,10 +177,15 @@ RSpec.describe Game, type: :model do
       not_correct_answer = %w[a b c d].detect { |element| element != correct_answer }
 
       expect(game_w_questions.answer_current_question!(not_correct_answer)).to eq(false)
+
+      expect(game_w_questions.is_failed).to be(true)
+
+      expect(game_w_questions.status).to be(:fail)
     end
 
-    it 'behaviour when last answer' do
+    it 'behaves when last answer' do
       max_current_level = Question::QUESTION_LEVELS.max
+
       game_w_questions.current_level = max_current_level
 
       q = game_w_questions.current_game_question
@@ -184,8 +193,16 @@ RSpec.describe Game, type: :model do
       correct_answer = q.correct_answer_key
 
       expect(game_w_questions.answer_current_question!(correct_answer)).to eq(true)
+
       expect(game_w_questions.current_level).to eq(max_current_level += 1)
+
       expect(game_w_questions.user.balance).to be > 0
+
+      expect(game_w_questions.finished_at).to be
+
+      expect(game_w_questions.is_failed).to be_falsey
+
+      expect(game_w_questions.status).to be(:won)
     end
 
     it 'when answer is after time out' do
@@ -196,6 +213,10 @@ RSpec.describe Game, type: :model do
       correct_answer = q.correct_answer_key
 
       expect(game_w_questions.answer_current_question!(correct_answer)).to eq(false)
+
+      expect(game_w_questions.is_failed).to be true
+
+      expect(game_w_questions.status).to be(:timeout)
     end
   end
 end
