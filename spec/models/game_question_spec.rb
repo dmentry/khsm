@@ -28,19 +28,17 @@ RSpec.describe GameQuestion, type: :model do
       # Именно под буквой b в тесте мы спрятали указатель на верный ответ
       expect(game_question.answer_correct?('b')).to be_truthy
     end
-  end
 
-  context 'delegate methods present' do
+    # корректность методов делегирования level и text
     it 'present methods: text and level correctly' do
       expect(game_question.text).to eq(game_question.question.text)
       expect(game_question.level).to eq(game_question.question.level)
     end
-  end
 
-  #Домашка 60-5 тест на проверку метода correct_answer_key
-  describe '#correct_answer_key returns right letter' do
-    it 'correct #correct_answer_key' do
-      expect(game_question.correct_answer_key).to eq('b')
+    describe '#correct_answer_key' do
+      it 'returns right letter' do
+        expect(game_question.correct_answer_key).to eq('b')
+      end
     end
   end
 end

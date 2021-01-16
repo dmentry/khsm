@@ -79,7 +79,6 @@ RSpec.describe GamesController, type: :controller do
 
       expect(flash[:alert]).to be
     end
-
   end
 
   # группа тестов на экшены контроллера, доступных залогиненным юзерам
