@@ -125,6 +125,27 @@ RSpec.describe GamesController, type: :controller do
       expect(flash.empty?).to be_truthy # удачный ответ не заполняет flash
     end
 
+    # тест на обработку подсказки «Помощь зала»
+    it 'uses audience help' do
+      # Проверяем, что у текущего вопроса нет подсказок
+      expect(game_w_questions_for_controller.current_game_question.help_hash[:audience_help]).not_to be
+      # И подсказка не использована
+      expect(game_w_questions_for_controller.audience_help_used).to be_falsey
+
+      # Пишем запрос в контроллер с нужным типом (put — не создаёт новых сущностей, но что-то меняет)
+      # put :help, params: {id: game_w_questions_for_controller.id, help_type: :audience_help}
+      # put :help, id: game_w_questions_for_controller.id, params: { help_type: :audience_help }
+      put :help, id: game_w_questions_for_controller.id, help_type: :audience_help
+      game = assigns(:game)
+
+      # Проверяем, что игра не закончилась, что флажок установился, и подсказка записалась
+      expect(game.finished?).to be_falsey
+      expect(game.audience_help_used).to be_truthy
+      expect(game.current_game_question.help_hash[:audience_help]).to be
+      expect(game.current_game_question.help_hash[:audience_help].keys).to contain_exactly('a', 'b', 'c', 'd')
+      expect(response).to redirect_to(game_path(game))
+    end
+
     #Домашка 61-1 Юзер не видит чужую игру
     it '#show game' do
       game2_w_questions_for_controller = FactoryBot.build(:game_with_questions)
