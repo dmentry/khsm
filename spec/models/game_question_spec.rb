@@ -49,7 +49,7 @@ RSpec.describe GameQuestion, type: :model do
       it 'should choose correct variant' do
 
         # Именно под буквой b в тесте мы спрятали указатель на верный ответ
-        expect(game_question.answer_correct?('b')).to be_truthy
+        expect(game_question.answer_correct?('b')).to be true
       end
     end
 
