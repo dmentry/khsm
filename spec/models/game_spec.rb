@@ -194,8 +194,6 @@ RSpec.describe Game, type: :model do
 
       expect(game_w_questions.answer_current_question!(correct_answer)).to eq(true)
 
-      expect(game_w_questions.current_level).to eq(max_current_level += 1)
-
       expect(game_w_questions.user.balance).to be > 0
 
       expect(game_w_questions.finished_at).to be
