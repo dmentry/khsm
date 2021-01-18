@@ -227,5 +227,31 @@ RSpec.describe GamesController, type: :controller do
 
       expect(game.prize).to eq(1000)
     end
+
+    #Домашка 62-4 пользователь может воспользоваться подсказкой 50/50
+    it 'checkes if #fifty_fifty can be used' do
+
+      # Проверяем, что у текущего вопроса нет подсказки 50/50
+      expect(game_w_questions_for_controller.current_game_question.help_hash[:fifty_fifty]).not_to be
+
+      # И подсказка не использована
+      expect(game_w_questions_for_controller.fifty_fifty_used).to be_falsey
+
+      # Пишем запрос в контроллер с нужным типом (put — не создаёт новых сущностей, но что-то меняет)
+      put :help, id: game_w_questions_for_controller.id, help_type: :fifty_fifty
+
+      game = assigns(:game)
+
+      # Проверяем, что игра не закончилась, что флажок установился, и подсказка записалась
+      expect(game.finished?).to be_falsey
+
+      expect(game.fifty_fifty_used).to be_truthy
+
+      expect(game.current_game_question.help_hash[:fifty_fifty]).to be
+
+      expect(game.current_game_question.help_hash[:fifty_fifty]).to include(game.current_game_question.correct_answer_key)
+
+      expect(response).to redirect_to(game_path(game))
+    end
   end
 end

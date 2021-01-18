@@ -12,8 +12,7 @@ class GamesController < ApplicationController
   # загружаем игру из базы для текущего юзера
   before_action :set_game, except: [:create]
 
-  # проверка - если игра завершена, отправляем юзера на его профиль,
-  # где он может увидеть статистику сыгранных игр
+  # проверка - если игра завершена, отправляем юзера на его профиль, где он может увидеть статистику сыгранных игр
   before_action :redirect_from_finished_game!, except: [:create]
 
   def show
@@ -74,8 +73,7 @@ class GamesController < ApplicationController
                 flash: {warning: I18n.t('controllers.games.game_finished', prize: view_context.number_to_currency(@game.prize))}
   end
 
-  # запрашиваем помощь в текущем вопросе
-  # params[:help_type]
+  # запрашиваем помощь в текущем вопросе params[:help_type]
   def help
     # используем помощь в игре и по результату задаем сообщение юзеру
     msg = if @game.use_help(params[:help_type].to_sym)
