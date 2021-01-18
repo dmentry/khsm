@@ -230,7 +230,6 @@ RSpec.describe GamesController, type: :controller do
 
     #Домашка 62-4 пользователь может воспользоваться подсказкой 50/50
     it 'checkes if #fifty_fifty can be used' do
-
       # Проверяем, что у текущего вопроса нет подсказки 50/50
       expect(game_w_questions_for_controller.current_game_question.help_hash[:fifty_fifty]).not_to be
 
