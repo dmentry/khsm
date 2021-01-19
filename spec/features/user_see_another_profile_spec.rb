@@ -1,7 +1,4 @@
 require 'rails_helper'
-# require 'database_cleaner/active_record'
-
-# DatabaseCleaner.strategy = :truncation
 
 # Начинаем описывать функционал, связанный с созданием игры
 RSpec.feature 'USER see another profile', type: :feature do
@@ -40,5 +37,4 @@ RSpec.feature 'USER see another profile', type: :feature do
 
     expect(page).to have_content('1 000 ₽')
   end
-    # DatabaseCleaner.clean
 end
