@@ -20,9 +20,11 @@ RSpec.describe 'users/show', type: :view do
     end
   end
 
-  context 'Logged-in user' do
+  context 'Logged-in user tests #1' do
     before(:each) do
       user = FactoryBot.create(:user, name: 'Вадик', balance: 5000)
+
+      user2 = FactoryBot.create(:user, name: 'НеВадик', balance: 2000)
 
       sign_in user
 
@@ -49,6 +51,24 @@ RSpec.describe 'users/show', type: :view do
       expect(rendered).to match '15'
 
       expect(rendered).to match '09 окт., 13:00'
+    end
+  end
+
+  context 'Logged-in user tests #2' do
+    it 'hides password change option' do
+      user = FactoryBot.create(:user, name: 'Вадик', balance: 5000)
+
+      user2 = FactoryBot.create(:user, name: 'НеВадик', balance: 2000)
+
+      sign_in user2
+
+      assign(:user, user)
+
+      assign(:game, game)
+
+      render
+
+      expect(rendered).not_to match 'Сменить имя и пароль'
     end
   end
 end
