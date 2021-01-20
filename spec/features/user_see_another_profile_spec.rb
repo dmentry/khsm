@@ -33,6 +33,8 @@ RSpec.feature 'USER see another profile', type: :feature do
     # вторая игра
     expect(page).to have_content('проигрыш')
 
+    # expect(page).to have_content('проигрыш')
+
     expect(page).to have_content('09 окт., 13:00')
 
     expect(page).to have_content('1 000 ₽')
