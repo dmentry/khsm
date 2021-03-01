@@ -5,23 +5,33 @@ During their game, the player has a set of lifelines that they may use only once
 if a contestant gets a question wrong, but had reached a designated cash value during their game, player will leave with that amount as their prize. 
 If a contestant feels unsure about an answer and does not wish to play on, they can walk away with the money they have won.
 
-# Try application
+## Live Demo
 https://luckyperson.herokuapp.com
 
-# System
+## Main requirements
 Ruby 2.7.0
 
 Rails 4.2.6
 
-# Installation
-git clone git@github.com:dmentry/khsm.git
+## Clone
+```git clone git@github.com:dmentry/khsm.git```
 
-## Before run
-bundle && bundle exec rake db:migrate
+## Install and migrate db
+```bundle install```
 
-### Run locally server
-bundle exec rails s
+```bundle exec rake db:migrate```
 
-### Open in browser
+```yarn```
 
+## Start server
+To start rails server:
+
+```bundle exec rails s```
+
+## Open in browser
 http://127.0.0.1:3000
+
+## Add new words
+Now new words can be added into DB only manually via console:
+
+```bundle exec rails c```
