@@ -9,24 +9,36 @@ If a contestant feels unsure about an answer and does not wish to play on, they 
 https://luckyperson.herokuapp.com
 
 ## Main requirements
-Ruby 2.7.0
+* Ruby 2.7.0
 
-Rails 4.2.6
+* Rails 4.2.6
 
 ## Clone
-```git clone git@github.com:dmentry/khsm.git```
+
+```
+git clone git@github.com:dmentry/khsm.git
+```
 
 ## Install and migrate db
-```bundle install```
 
-```bundle exec rake db:migrate```
+```
+bundle install
+```
 
-```yarn```
+```
+bundle exec rake db:migrate
+```
+
+```
+yarn
+```
 
 ## Start server
 To start rails server:
 
-```bundle exec rails s```
+```
+bundle exec rails s
+```
 
 ## Open in browser
 http://127.0.0.1:3000
