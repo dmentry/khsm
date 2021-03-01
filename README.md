@@ -30,8 +30,3 @@ To start rails server:
 
 ## Open in browser
 http://127.0.0.1:3000
-
-## Add new words
-Now new words can be added into DB only manually via console:
-
-```bundle exec rails c```
